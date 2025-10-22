@@ -5,7 +5,8 @@ set DEF_COMPILER_FLAGS=-mconsole -march=native -mtune=native -std=c89 -pedantic 
 
 set DEF_FLAGS_LINKER=-lkernel32
 
-set SOURCE_NAME=win32_hello_world
+cc -s -O2 %DEF_COMPILER_FLAGS% win32_hello_world.c -o win32_hello_world.exe %DEF_FLAGS_LINKER%
+cc -s -O2 %DEF_COMPILER_FLAGS% win32_hello_cli.c -o win32_hello_cli.exe %DEF_FLAGS_LINKER%
 
-cc -s -O2 %DEF_COMPILER_FLAGS% %SOURCE_NAME%.c -o %SOURCE_NAME%.exe %DEF_FLAGS_LINKER%
-%SOURCE_NAME%.exe
+win32_hello_world.exe
+win32_hello_cli.exe test_argument
