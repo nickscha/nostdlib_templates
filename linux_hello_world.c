@@ -52,7 +52,7 @@ void *memcpy(void *dest, const void *src, unsigned int count)
  */
 #if defined(__x86_64__)
 
-static inline long sys_write(unsigned int fd, const char *buf, unsigned long len)
+static long sys_write(unsigned int fd, const char *buf, unsigned long len)
 {
     long ret;
     __asm__ volatile(
@@ -63,7 +63,7 @@ static inline long sys_write(unsigned int fd, const char *buf, unsigned long len
     return ret;
 }
 
-static inline void sys_exit(int code)
+static void sys_exit(int code)
 {
     __asm__ volatile(
         "movq $60, %%rax\n\t"
@@ -78,7 +78,7 @@ static inline void sys_exit(int code)
 
 #elif defined(__i386__)
 
-static inline long sys_write(unsigned int fd, const char *buf, unsigned long len)
+static long sys_write(unsigned int fd, const char *buf, unsigned long len)
 {
     long ret;
     __asm__ volatile(
@@ -89,7 +89,7 @@ static inline long sys_write(unsigned int fd, const char *buf, unsigned long len
     return ret;
 }
 
-static inline void sys_exit(int code)
+static void sys_exit(int code)
 {
     __asm__ volatile(
         "int $0x80"
@@ -102,7 +102,7 @@ static inline void sys_exit(int code)
 
 #elif defined(__aarch64__)
 
-static inline long sys_write(unsigned int fd, const char *buf, unsigned long len)
+static long sys_write(unsigned int fd, const char *buf, unsigned long len)
 {
     register long x8 __asm__("x8") = 64; /* syscall number: write */
     register long x0 __asm__("x0") = fd;
@@ -116,7 +116,7 @@ static inline long sys_write(unsigned int fd, const char *buf, unsigned long len
     return x0;
 }
 
-static inline void sys_exit(int code)
+static void sys_exit(int code)
 {
     register long x8 __asm__("x8") = 93; /* syscall number: exit */
     register long x0 __asm__("x0") = code;
