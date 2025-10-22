@@ -23,8 +23,10 @@ ENTRY_POINT="-Wl,-e,nostdlib_main"
 # Build Targets
 # -----------------------------------------------------------------------------
 cc -O2 $DEF_COMPILER_FLAGS $ENTRY_POINT linux_hello_world.c -o linux_hello_world $DEF_LINKER_FLAGS
+cc -O2 $DEF_COMPILER_FLAGS $ENTRY_POINT linux_hello_cli.c -o linux_hello_cli $DEF_LINKER_FLAGS
 
 # -----------------------------------------------------------------------------
 # Run tests
 # -----------------------------------------------------------------------------
 ./linux_hello_world
+./linux_hello_cli test_argument foo bar
