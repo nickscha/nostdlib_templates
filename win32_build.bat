@@ -14,6 +14,7 @@ set DEF_FLAGS_LINKER=-lkernel32
 
 cc -s -O2 %DEF_COMPILER_FLAGS% win32_hello_world.c -o win32_hello_world.exe %DEF_FLAGS_LINKER%
 cc -s -O2 %DEF_COMPILER_FLAGS% win32_hello_cli.c -o win32_hello_cli.exe %DEF_FLAGS_LINKER%
+cc -s -O2 -shared %DEF_COMPILER_FLAGS% win32_hello_dll.c -o win32_hello_dll.dll %DEF_FLAGS_LINKER%
 
 win32_hello_world.exe
 win32_hello_cli.exe test_argument
