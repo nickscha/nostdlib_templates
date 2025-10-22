@@ -7,7 +7,7 @@ set -e
 DEF_COMPILER_FLAGS="-march=native -mtune=native -std=c89 -pedantic \
 -nodefaultlibs -nostdlib \
 -fno-builtin -ffreestanding -fno-asynchronous-unwind-tables \
--fomit-frame-pointer -fuse-ld=lld \
+-fuse-ld=lld \
 -Wall -Wextra -Werror -Wvla -Wconversion -Wdouble-promotion \
 -Wsign-conversion -Wmissing-field-initializers -Wuninitialized -Winit-self \
 -Wunused -Wunused-macros -Wunused-local-typedefs"
