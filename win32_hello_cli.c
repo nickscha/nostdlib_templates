@@ -165,10 +165,10 @@ __attribute((externally_visible))
 #ifdef __i686__
 __attribute((force_align_arg_pointer))
 #endif
-int mainCRTStartup(void)
+int nostdlib_main(void)
 {
   char *cmdline = GetCommandLineA();
-  
+
   char **argv;
   int argc = win32_parse_command_line(cmdline, &argv);
 
