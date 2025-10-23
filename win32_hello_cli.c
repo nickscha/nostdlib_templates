@@ -15,7 +15,14 @@ LICENSE
  *
  * Some versions of GCC/Clang still tries to call memset/memcpy even with
  * having "-fno-builtin" set.
+ * 
+ * Additionally for MSVC (cl.exe) the "_fltused" has to be specified for a 
+ * working nostdlib project.
  */
+#ifdef _MSC_VER
+int _fltused = 0;
+#endif
+
 #ifdef _MSC_VER
 #pragma function(memset)
 #endif
