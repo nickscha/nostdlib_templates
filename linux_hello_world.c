@@ -129,8 +129,31 @@ static void sys_exit(int code)
         ;
 }
 
+#elif defined(__riscv)
+
+static long sys_write(unsigned int fd, const char *buf, unsigned long len)
+{
+    register long a0 __asm__("a0") = fd;
+    register const char *a1 __asm__("a1") = buf;
+    register long a2 __asm__("a2") = len;
+    register long a7 __asm__("a7") = 64; /* write */
+    __asm__ volatile("ecall"
+                     : "+r"(a0)
+                     : "r"(a1), "r"(a2), "r"(a7)
+                     : "memory");
+    return a0;
+}
+static void sys_exit(int code)
+{
+    register long a0 __asm__("a0") = code;
+    register long a7 __asm__("a7") = 93; /* exit */
+    __asm__ volatile("ecall" : : "r"(a0), "r"(a7) : "memory");
+    for (;;)
+        ;
+}
+
 #else
-#error "Unsupported architecture: x86_64, i386, or aarch64 only"
+#error "Unsupported architecture: x86_64, i386, aarch64 or riscv only"
 #endif
 
 /* ############################################################################
