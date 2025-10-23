@@ -18,6 +18,30 @@ C89 standard compliant, nostdlib/nolibc templates (NOSTDLIB_TEMPLATES).
   <img src="https://img.shields.io/badge/nolib-nostdlib-lightgrey?style=flat-square" alt="nostdlib">
 </p>
 
+## Example Programs
+
+| Platform             | Example                                      | Description                                                      | Entry Point                                       | Notes                                                 |
+| -------------------- | -------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------- | ----------------------------------------------------- |
+| **Linux**         | [`linux_hello_world.c`](linux_hello_world.c) | Minimal “Hello World” using raw Linux syscalls (`write`, `exit`) | `_start` → `nostdlib_main`                        | Works on `x86_64`, `i386`, `ARM`, `AArch64`, etc.     |
+| **Linux (CLI)**   | [`linux_hello_cli.c`](linux_hello_cli.c)     | Prints all command-line arguments using direct syscalls          | `_start` → `nostdlib_main(int argc, char **argv)` | Demonstrates manual `argc`/`argv` parsing from stack. |
+| **Windows**       | [`win32_hello_world.c`](win32_hello_world.c) | Minimal Win32 console “Hello World” without CRT or libc          | `nostdlib_main`                                   | Uses only `WriteConsoleA` + `ExitProcess`.            |
+| **Windows (CLI)** | [`win32_hello_cli.c`](win32_hello_cli.c)     | Prints command-line arguments via raw Win32 API                  | `nostdlib_main`                                   | Uses `GetCommandLineA` and manual parsing.            |
+
+## Build & Run
+
+On Linux use:
+
+```bash
+chmod +x linux_build.sh
+./linux_build.sh
+```
+
+On Windows use:
+
+```bat
+win32_build.bat
+```
+
 ## "nostdlib" Motivation & Purpose
 
 nostdlib is a lightweight, minimalistic approach to C development that removes dependencies on the standard library. The motivation behind this project is to provide developers with greater control over their code by eliminating unnecessary overhead, reducing binary size, and enabling deployment in resource-constrained environments.
