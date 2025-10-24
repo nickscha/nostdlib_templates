@@ -49,6 +49,7 @@ jobs:
               -Wmissing-field-initializers -Wuninitialized -Winit-self -Wunused \
               -Wunused-macros -Wunused-local-typedefs \
               -Wl,-e,nostdlib_main ${{ matrix.example }}.c -o ${{ matrix.example }}_${{ matrix.cc }} -static -s
+          fi
       - name: Run ${{ matrix.example }}
         run: ./${{ matrix.example }}_${{ matrix.cc }}
       - name: Upload ${{ matrix.example }} Artifact
