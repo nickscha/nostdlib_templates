@@ -114,6 +114,7 @@ static void sys_exit(int code)
  * ############################################################################
  */
 #ifdef __clang__
+__attribute__((visibility("default")))
 #elif __GNUC__
 __attribute((externally_visible))
 #endif

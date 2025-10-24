@@ -146,6 +146,7 @@ int start(int argc, char **argv)
  * ############################################################################
  */
 #ifdef __clang__
+__attribute__((visibility("default")))
 #elif __GNUC__
 __attribute((externally_visible))
 #endif
