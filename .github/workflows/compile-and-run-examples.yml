@@ -31,6 +31,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: sudo apt update && sudo apt install -y ${{ matrix.cc }} lld
       - name: Compile ${{ matrix.example }}
         run: ${{ matrix.cc }} -O2 -march=native -mtune=native -std=c89 -pedantic -nodefaultlibs -nostdlib -fno-builtin -ffreestanding -fno-asynchronous-unwind-tables -fuse-ld=lld -Wall -Wextra -Werror -Wvla -Wconversion -Wdouble-promotion -Wsign-conversion -Wmissing-field-initializers -Wuninitialized -Winit-self -Wunused -Wunused-macros -Wunused-local-typedefs -Wl,-e,nostdlib_main ${{ matrix.example }}.c -o ${{ matrix.example }}_${{ matrix.cc }} -static -s
       - name: Run ${{ matrix.example }}
