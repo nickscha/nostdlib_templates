@@ -6,7 +6,7 @@ jobs:
     strategy:
       matrix:
         cc: [gcc]
-        os: [windows-latest]
+        os: [windows-latest, windows-2025, windows-2022, windows-11-arm]
         example: [win32_hello_world, win32_hello_cli]
     runs-on: ${{ matrix.os }}
     steps:
@@ -25,7 +25,7 @@ jobs:
     strategy:
       matrix:
         cc: [gcc, clang]
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, ubuntu-24.04, ubuntu-22.04, ubuntu-24.04-arm, ubuntu-22.04-arm]
         example: [linux_hello_world, linux_hello_cli]
     runs-on: ${{ matrix.os }}
     steps:
