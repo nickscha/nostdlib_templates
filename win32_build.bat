@@ -1,12 +1,9 @@
 @echo off
-REM "-mconsole" - Use when you want to write to console
-REM "-mwindows" - Use when you want a window application without console
-REM "-Xlinker /ENTRY:nostdlib_main" - What is the entry point function name
-REM "-Xlinker /STACK:0x100000,0x100000" - This sets the stack size (1 MB)
 
 REM ---------------------------------------------------------------------------
-REM Compiler and Linker Configuration
+REM GCC/Clang Build
 REM ---------------------------------------------------------------------------
+REM
 set DEF_COMPILER_FLAGS=-mconsole -march=native -mtune=native -std=c89 -pedantic -nodefaultlibs -nostdlib -mno-stack-arg-probe ^
 -Xlinker /STACK:0x100000,0x100000 ^
 -Xlinker /ENTRY:nostdlib_main ^
@@ -31,6 +28,7 @@ win32_hello_cli.exe test_argument foo bar
 REM ---------------------------------------------------------------------------
 REM MSVC Build
 REM ---------------------------------------------------------------------------
+REM
 REM If you don't have MSVC download the "VS Build Tools"
 REM Then you have to install at least these components:
 REM   - MSVC v143 - VS 2022 C++ x64/x86 build tools
@@ -43,8 +41,14 @@ REM   - "LIB=C:\Program Files (x86)\Windows Kits\10\Lib\10.0.19041.0\um\x64"
 set MSVC_COMPILER_FLAGS=-nologo -O2 -GS- -GR- -Gm- -EHa- -Gs9999999
 set MSVC_LINKER_FLAGS=/ENTRY:nostdlib_main /SUBSYSTEM:CONSOLE /NODEFAULTLIB kernel32.lib /STACK:0x100000,0x100000 /RELEASE /OPT:REF /OPT:ICF /DEBUG:NONE
 
+REM ---------------------------------------------------------------------------
+REM Build Targets
+REM ---------------------------------------------------------------------------
 cl %MSVC_COMPILER_FLAGS% win32_hello_world.c /Fe:win32_hello_world_msvc.exe -link %MSVC_LINKER_FLAGS%
 cl %MSVC_COMPILER_FLAGS% win32_hello_cli.c /Fe:win32_hello_cli_msvc.exe -link %MSVC_LINKER_FLAGS%
 
+REM ---------------------------------------------------------------------------
+REM Run tests
+REM ---------------------------------------------------------------------------
 win32_hello_world_msvc.exe
 win32_hello_cli_msvc.exe test_argument foo bar
