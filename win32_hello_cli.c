@@ -15,8 +15,8 @@ LICENSE
  *
  * Some versions of GCC/Clang still tries to call memset/memcpy even with
  * having "-fno-builtin" set.
- * 
- * Additionally for MSVC (cl.exe) the "_fltused" has to be specified for a 
+ *
+ * Additionally for MSVC (cl.exe) the "_fltused" has to be specified for a
  * working nostdlib project.
  */
 #ifdef _MSC_VER
@@ -76,7 +76,7 @@ GetCommandLineA(void);
 
 #endif /* _WINDOWS_ */
 
-static unsigned int strlen(char *str)
+static unsigned int my_strlen(char *str)
 {
   char *s = str;
 
@@ -105,7 +105,7 @@ int start(int argc, char **argv)
 
   for (i = 0; i < argc; ++i)
   {
-    WriteConsoleA(hConsole, argv[i], (unsigned long)strlen(argv[i]), &written, 0);
+    WriteConsoleA(hConsole, argv[i], (unsigned long)my_strlen(argv[i]), &written, 0);
     WriteConsoleA(hConsole, "\n", 1, &written, 0);
   }
 
