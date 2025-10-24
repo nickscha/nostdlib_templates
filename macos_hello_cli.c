@@ -149,6 +149,7 @@ int start(int argc, char **argv)
 __attribute__((visibility("default")))
 #elif __GNUC__
 __attribute((externally_visible))
+__attribute__((visibility("default")))
 #endif
 #ifdef __i686__
 __attribute((force_align_arg_pointer))
