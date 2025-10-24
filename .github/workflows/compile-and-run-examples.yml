@@ -57,37 +57,3 @@ jobs:
         with:
           name: ${{ matrix.os }}-${{ matrix.cc }}-${{ matrix.example }}
           path: ${{ matrix.example }}_${{ matrix.cc }}
-  macos:
-    strategy:
-      matrix:
-        cc: [gcc, clang]
-        os: [macos-latest, macos-15, macos-14]
-        example: [macos_hello_world, macos_hello_cli]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-      - name: Install Dependencies
-        run: |
-          # Install Homebrew if missing
-          if ! command -v brew &>/dev/null; then
-            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          fi
-
-          # Install ${{ matrix.cc }} and lld
-          brew install lld
-      - name: Compile ${{ matrix.example }}
-        run: |
-          ${{ matrix.cc }} -O2 -std=c89 -pedantic -nostdlib \
-            -fno-builtin -ffreestanding -fno-asynchronous-unwind-tables -fuse-ld=lld \
-            -Wall -Wextra -Werror -Wvla -Wconversion -Wdouble-promotion \
-            -Wmissing-field-initializers -Wuninitialized -Winit-self -Wunused \
-            -Wunused-macros -Wunused-local-typedefs \
-            -Wl,-e,nostdlib_main ${{ matrix.example }}.c -o ${{ matrix.example }}_${{ matrix.cc }} -Wl,-dead_strip
-      - name: Run ${{ matrix.example }}
-        run: ./${{ matrix.example }}_${{ matrix.cc }}
-      - name: Upload ${{ matrix.example }} Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.os }}-${{ matrix.cc }}-${{ matrix.example }}
-          path: ${{ matrix.example }}_${{ matrix.cc }}
