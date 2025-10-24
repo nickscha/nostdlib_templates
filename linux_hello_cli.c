@@ -211,16 +211,30 @@ int nostdlib_main(void)
     char **argv;
     int ret;
 
-#if defined(__x86_64__) || defined(__i386__) || defined(__aarch64__)
+#if defined(__aarch64__)
+    long argc;
+    char **argv;
     __asm__ volatile(
-#if defined(__x86_64__) || defined(__aarch64__)
+        "ldr %0, [sp]\n\t"        /* argc = *(sp) */
+        "add %1, sp, #8\n\t"      /* argv = sp + 8 */
+        : "=r"(argc), "=r"(argv)
+    );
+#elif defined(__x86_64__)
+    int argc;
+    char **argv;
+    __asm__ volatile(
         "mov (%%rsp), %0\n\t"
         "lea 8(%%rsp), %1\n\t"
+        : "=r"(argc), "=r"(argv)
+    );
 #elif defined(__i386__)
+    int argc;
+    char **argv;
+    __asm__ volatile(
         "mov (%%esp), %0\n\t"
         "lea 4(%%esp), %1\n\t"
-#endif
-        : "=r"(argc), "=r"(argv));
+        : "=r"(argc), "=r"(argv)
+    );
 #else
 #error "Unsupported architecture: x86_64, i386, or aarch64 only"
 #endif
