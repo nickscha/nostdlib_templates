@@ -42,6 +42,15 @@ On Windows use:
 win32_build.bat
 ```
 
+## Download pre-built examples
+
+In the github actions tab you will find for most architectures and operating systems prebuilt binaries of the example programs.
+
+| Workflow | Status |
+|----------|--------|
+| Main CI | [![CI](https://github.com/nickscha/nostdlib_templates/actions/workflows/compile-and-run-examples.yml/badge.svg)](https://github.com/nickscha/nostdlib_templates/actions/workflows/compile-and-run-examples.yml) |
+
+
 ## "nostdlib" Motivation & Purpose
 
 nostdlib is a lightweight, minimalistic approach to C development that removes dependencies on the standard library. The motivation behind this project is to provide developers with greater control over their code by eliminating unnecessary overhead, reducing binary size, and enabling deployment in resource-constrained environments.
