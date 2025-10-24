@@ -1,4 +1,4 @@
-/* nostdlib_templates - v0.3 - public domain data structures - nickscha 2025
+/* nostdlib_templates - v0.4 - public domain data structures - nickscha 2025
 
 C89 standard compliant, nostdlib/nolibc templates (NOSTDLIB_TEMPLATES).
 
