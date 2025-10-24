@@ -202,7 +202,12 @@ __attribute((force_align_arg_pointer))
 int nostdlib_main(void)
 {
     /* Linux ABI: stack at nostdlib_main: [argc][argv0 ptr][argv1 ptr]...[argvN ptr][NULL][envp0 ptr]... */
+#if defined(__x86_64__) || defined(__i386__)
     int argc;
+#elif defined(__aarch64__)
+    long argc; /* 64-bit stack pointer */
+#endif
+
     char **argv;
     int ret;
 
@@ -220,7 +225,7 @@ int nostdlib_main(void)
 #error "Unsupported architecture: x86_64, i386, or aarch64 only"
 #endif
 
-    ret = start(argc, argv);
+    ret = start((int) argc, argv);
 
     /* Exit with return code */
     sys_exit(ret);
