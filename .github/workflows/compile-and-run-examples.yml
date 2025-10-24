@@ -75,7 +75,7 @@ jobs:
           fi
 
           # Install ${{ matrix.cc }} and lld
-          brew install ${{ matrix.cc }} lld
+          brew install lld
       - name: Compile ${{ matrix.example }}
         run: |
           ${{ matrix.cc }} -O2 -std=c89 -pedantic -nostdlib \
